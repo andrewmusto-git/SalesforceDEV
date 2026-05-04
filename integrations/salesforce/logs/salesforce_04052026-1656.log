@@ -1,0 +1,4 @@
+2026-05-04T16:56:56 ERROR    Missing required configuration: SF_INSTANCE_URL
+2026-05-04T16:56:56 ERROR    Missing required configuration: SF_TOKEN_URL
+2026-05-04T16:56:56 ERROR    Missing required configuration: SF_CLIENT_ID
+2026-05-04T16:56:56 ERROR    Missing required configuration: SF_CLIENT_SECRET
