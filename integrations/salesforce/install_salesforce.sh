@@ -223,7 +223,7 @@ fi
 # Step 6 — File permissions
 # ---------------------------------------------------------------------------
 echo -e "\n${BOLD}Step 6 — File Permissions${NC}"
-chmod 700 "${SCRIPTS_DIR}"
+chmod 755 "${SCRIPTS_DIR}"
 [[ -f "${ENV_FILE}" ]] && chmod 600 "${ENV_FILE}"
 success "Permissions set"
 
