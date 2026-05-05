@@ -366,7 +366,7 @@ def build_oaa_payload(
                 log.debug("User %s not found when assigning PS role %s", username, role_name)
 
     # ---- Application Resources: unique Salesforce SObject types ----
-    sobject_types = sorted({op["SObjectType"] for op in object_permissions})
+    sobject_types = sorted({op["SObjectType"] for op in object_permissions if op.get("SObjectType")})
     log.info("Adding %d Salesforce object types as application resources", len(sobject_types))
     resource_map: dict = {}
     for sobj_type in sobject_types:
@@ -377,9 +377,9 @@ def build_oaa_payload(
     mapped = 0
     skipped = 0
     for op in object_permissions:
-        role_name = ps_id_to_role_name.get(op["ParentId"])
-        sobj_type = op["SObjectType"]
-        if not role_name:
+        role_name = ps_id_to_role_name.get(op.get("ParentId", ""))
+        sobj_type = op.get("SObjectType")
+        if not sobj_type or not role_name:
             skipped += 1
             continue
         resource = resource_map.get(sobj_type)
