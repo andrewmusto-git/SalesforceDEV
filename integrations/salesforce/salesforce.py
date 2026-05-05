@@ -315,13 +315,19 @@ def build_oaa_payload(
 
     # ---- OAA Local Roles: Profiles ----
     log.info("Adding %d profiles as local roles", len(profiles))
+    added_role_names: set = set()
     for profile in profiles:
         app.add_local_role(profile["Name"])
+        added_role_names.add(profile["Name"])
 
     # ---- OAA Local Roles: Standalone Permission Sets ----
     log.info("Adding %d standalone permission sets as local roles", len(standalone_ps))
     for ps in standalone_ps:
         role_name = ps.get("Label") or ps["Name"]
+        if role_name in added_role_names:
+            log.warning("Skipping duplicate local role %r (PermissionSet Id: %s)", role_name, ps.get("Id", "unknown"))
+            continue
+        added_role_names.add(role_name)
         app.add_local_role(role_name)
 
     # ---- OAA Local Users ----
